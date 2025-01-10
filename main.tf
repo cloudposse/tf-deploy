@@ -278,6 +278,26 @@ resource "aws_codepipeline" "default" {
     }
   }
 
+  dynamic "stage" {
+	for_each = var.approve_sns_arn != "" && var.approve_sns_arn != "" ? ["true"] : []
+
+	content {
+		name = "Approval"
+		action {
+			name     = "Approval"
+			category = "Approval"
+			owner    = "AWS"
+			provider = "Manual"
+			version  = "1"
+
+			configuration = {
+				NotificationArn = "${var.approve_sns_arn}"
+				CustomData = "${var.approve_comment}"
+			}
+		}
+	}
+  }
+
   stage {
     name = "Build"
 

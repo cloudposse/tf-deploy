@@ -191,3 +191,13 @@ variable "website_bucket_acl" {
   default     = "public-read"
   description = "Canned ACL of the S3 bucket objects that get served as a website, can be private if using CloudFront with OAI"
 }
+
+variable "approve_comment" {
+  type = string
+  default = "Approval needed for deployment"
+}
+
+variable "approve_sns_arn" {
+  type = string
+  default = ""
+}
